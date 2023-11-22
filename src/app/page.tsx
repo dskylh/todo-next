@@ -1,26 +1,18 @@
 "use client";
 import TodoComponent, { Todo } from "@/ui/todo";
+import TodoContainer from "@/ui/todoContainer";
+// TODO: fetch data from the api
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import axios from "axios";
+
+const queryClient = new QueryClient();
+
 export default function Page() {
-	const todo1: Todo = {
-		name: "The Fourth One",
-		description: "The third whaa updated second time",
-		completed: true,
-		createdAt: new Date("2023-10-31T12:55:03.762Z"),
-		completedAt: new Date("2023-10-31T14:06:13.611Z"),
-		dueDate: new Date("2023-10-30T15:39:30.543Z"),
-	};
-	const todo2: Todo = {
-		name: "The Fifth One",
-		description: "Five",
-		completed: false,
-		createdAt: new Date("2023-10-31T12:56:18.674Z"),
-		completedAt: null,
-		dueDate: new Date("2023-10-30T15:39:30.543Z"),
-	};
-	return (
-		<div id="todo-container">
-			<TodoComponent todo={todo1} />
-			<TodoComponent todo={todo2} />
-		</div>
-	);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TodoContainer />
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
+  );
 }
