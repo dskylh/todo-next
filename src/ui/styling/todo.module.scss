@@ -1,0 +1,37 @@
+/* components/Todo.module.css */
+
+.container {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 20px;
+  // justify-content: flex-start;
+}
+
+.todo {
+  // align-items: center;
+  margin-bottom: 8px;
+  background: radial-gradient(ellipse at center, #1f1d2e, #191724);
+  user-select: none;
+  // background-color: radial-gradient(ellipse at center, #21202e, #191724);
+}
+
+.checkbox {
+  margin-right: 8px;
+  padding-right: 10px;
+  margin-left: 15px;
+  padding-left: 10px;
+}
+
+.description {
+  color: #6e6a86;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  pointer-events: none;
+  margin-left: 1rem;
+}
+
+.todo:hover+.description {
+  transition: opacity 1s ease-in;
+  opacity: 1;
+}

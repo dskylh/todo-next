@@ -1,0 +1,23 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+$foreground: #e0def4;
+$foam: #9ccfd8;
+$background: #191724;
+
+body {
+  color: $foreground;
+  background: $background;
+}
+
+#page {
+  display: flex;
+  flex-direction: row;
+  margin: 2.5rem;
+  padding: 1.25rem;
+  align-self: center;
+  justify-content: center;
+  border: 2px solid rgba($foam, 0.8);
+  border-radius: 10px;
+}

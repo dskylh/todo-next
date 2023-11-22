@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Fira_Code } from "next/font/google";
+import "./global.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const firaCode = Fira_Code({ subsets: ["latin"], weight: "500" });
 
 export const metadata: Metadata = {
   title: "Todo App",
@@ -16,7 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={firaCode.className}>
+        <div className="flex bg-rosePine-surface justify-center items-center">
+          <h1 className="p-5 text-3xl">Todo</h1>
+        </div>
+        <div id="page">{children}</div>
+      </body>
     </html>
   );
 }
