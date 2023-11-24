@@ -2,17 +2,17 @@ import { useState } from "react";
 import styles from "./styling/todo.module.scss";
 import { z } from "zod";
 
-export const Todo = z.object({
-  id: z.string(),
+export const TodoSchema = z.object({
+  _id: z.string(),
   name: z.string(),
   description: z.string(),
   completed: z.boolean(),
-  createdAt: z.date(),
-  completedAt: z.date().or(z.null()),
-  dueDate: z.date().or(z.null()),
+  createdAt: z.string(),
+  completedAt: z.string().or(z.null()),
+  dueDate: z.string().or(z.null()),
 });
 
-export type TodoType = z.infer<typeof Todo>
+export type TodoType = z.infer<typeof TodoSchema>
 
 export default function TodoComponent(props: { todo: TodoType }) {
   const { todo } = props;
@@ -26,8 +26,9 @@ export default function TodoComponent(props: { todo: TodoType }) {
   return (
     <div>
       <span className={styles.date}>
-        {todo.createdAt.toLocaleDateString()}{" "}
+        {new Date(todo.createdAt).toLocaleDateString()}{" "}
       </span>
+
       <label className={styles.todo}>
         <input
           name="check"

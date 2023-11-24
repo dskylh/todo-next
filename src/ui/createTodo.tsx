@@ -1,23 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Todo } from "./todo";
+import { TodoType } from "./todo";
 
 export default function CreateTodo() {
   const mutation = useMutation({
-    mutationFn: (newTodo) => {
-      return axios.post("https://127.0.0.1:3001/todo", newTodo);
+    mutationFn: (formData) => {
+      return axios.post("https://127.0.0.1:3001/todo", formData);
     },
   });
-  const handleSubmit = (event) => {
-    event?.preventDefault;
+  const handleSubmit = (formData: FormData) => {
     const newTodo = {
-      name: event.target.name,
-      description: event.target.description,
-      dueDate: new Date(event.target.dueDate),
-      completed: false,
+      name: formData.get("name"),
+      description: formData.get("description"),
+      dueDate: formData.get("dueDate"),
     };
-    // FIX: This is where we stand
-    mutation.mutate();
+
   };
 
   return (
@@ -30,7 +27,7 @@ export default function CreateTodo() {
             <div>An error occured {mutation.error.message}</div>
           ) : null}
           {mutation.isSuccess ? <div>Todo Added!</div> : null}
-          <form>
+          <form onSubmit={mutation.mutate}>
             <label htmlFor="name">Name</label>
             <input id="name" name="name" type="text" />
             <label htmlFor="description">Description</label>

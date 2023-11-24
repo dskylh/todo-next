@@ -1,6 +1,6 @@
 import fetchTodos from "@/api/fetchTodos";
 import { useQuery } from "@tanstack/react-query";
-import TodoComponent, { Todo } from "./todo";
+import TodoComponent, { TodoType } from "./todo";
 
 export default function TodoContainer() {
   const { data, isPending, error, isFetching } = useQuery({
@@ -17,7 +17,7 @@ export default function TodoContainer() {
   return (
     <div id="todo-container">
       {data.map((todo) => (
-        <TodoComponent todo={todo} />
+        <TodoComponent key={todo._id} todo={todo} />
       ))}
     </div>
   );

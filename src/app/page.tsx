@@ -1,5 +1,5 @@
 "use client";
-import TodoComponent, { Todo } from "@/ui/todo";
+import TodoComponent, { TodoType } from "@/ui/todo";
 import TodoContainer from "@/ui/todoContainer";
 // TODO: fetch data from the api
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <QueryClientProvider client={queryClient}>
       <TodoContainer />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
