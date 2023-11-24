@@ -1,17 +1,20 @@
 import { useState } from "react";
 import styles from "./styling/todo.module.scss";
+import { z } from "zod";
 
-export type Todo = {
-  id: string;
-  name: string;
-  description: string;
-  completed: boolean;
-  createdAt: Date;
-  completedAt: Date | null;
-  dueDate: Date | null;
-};
+export const Todo = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  completed: z.boolean(),
+  createdAt: z.date(),
+  completedAt: z.date().or(z.null()),
+  dueDate: z.date().or(z.null()),
+});
 
-export default function TodoComponent(props: { todo: Todo }) {
+export type TodoType = z.infer<typeof Todo>
+
+export default function TodoComponent(props: { todo: TodoType }) {
   const { todo } = props;
   const [todoState, setTodoState] = useState(todo);
 
