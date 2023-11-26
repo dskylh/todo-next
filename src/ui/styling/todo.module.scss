@@ -8,11 +8,19 @@
 }
 
 .todo {
-  // align-items: center;
-  margin-bottom: 8px;
-  background: radial-gradient(ellipse at center, #1f1d2e, #191724);
-  user-select: none;
-  // background-color: radial-gradient(ellipse at center, #21202e, #191724);
+  margin-bottom: 0.2rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.todo_label{
+  @apply text-rosePine-text;
+  @apply text-center;
+  @apply m-1;
+  @apply w-64;
+  @apply text-center;
+  @apply rounded-lg;
+
 }
 
 .checkbox {
@@ -25,13 +33,24 @@
 .description {
   color: #6e6a86;
   position: absolute;
+  text-wrap: nowrap;
   opacity: 0;
   transition: opacity 1s ease-out;
   pointer-events: none;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 
-.todo:hover+.description {
+.todo_label:hover+.description {
   transition: opacity 1s ease-in;
   opacity: 1;
 }
+
+.completed {
+  text-decoration: line-through;
+  @apply text-rosePine-muted;
+  transition: text-decoration 1s ease-out;
+  transition: color 0.5s ease-out;
+}
+
+
+

@@ -1,10 +1,10 @@
 import { TodoType } from "@/ui/TodoType";
 import axios from "axios";
 
-export default async function postTodo(newTodo: TodoType) {
+export default async function patchTodo(newTodo: TodoType) {
 	try {
-		const response = await axios.post(
-			"http://127.0.0.1:3001/api/v1/todo",
+		const response = await axios.patch(
+			`http://127.0.0.1:3001/api/v1/todo/${newTodo._id}`,
 			newTodo,
 		);
 		return console.log(response);

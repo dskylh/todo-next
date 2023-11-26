@@ -1,7 +1,12 @@
 
+@tailwind components;
+@tailwind base;
+@tailwind variants;
+@tailwind utilities;
 $foreground: #e0def4;
 $foam: #9ccfd8;
 $background: #191724;
+
 
 body {
   color: $foreground;
@@ -14,6 +19,7 @@ body {
   margin: 2.5rem;
   padding: 1.25rem;
   align-self: center;
+  align-items: center;
   justify-content: center;
   border: 2px solid rgba($foam, 0.8);
   border-radius: 10px;

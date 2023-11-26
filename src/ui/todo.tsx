@@ -1,35 +1,42 @@
+import patchTodo from "@/api/patchTodo";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { TodoType } from "./TodoType";
 import styles from "./styling/todo.module.scss";
-import { z } from "zod";
 
-export const TodoSchema = z.object({
-	_id: z.optional(z.string()),
-	name: z.string(),
-	description: z.string(),
-	completed: z.boolean(),
-	completedAt: z.optional(z.string().or(z.null())),
-	createdAt: z.optional(z.string()),
-	dueDate: z.string().or(z.null()),
-});
-
-export type TodoType = z.infer<typeof TodoSchema>;
+const useMutateTodo = () => {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: patchTodo,
+		onSuccess: (data, variables) => {
+			queryClient.setQueryData(["todos", { id: variables._id }], data);
+		},
+	});
+};
 
 export default function TodoComponent(props: { todo: TodoType }) {
 	const { todo } = props;
 	const [todoState, setTodoState] = useState(todo);
 
-	function handleToggle(): void {
-		const updatedTodo = { ...todoState, completed: !todoState.completed };
-		setTodoState(updatedTodo);
+	const mutation = useMutateTodo();
+	function handleToggle() {
+		const newTodo = {
+			...todoState,
+			completed: !todoState.completed,
+		};
+		setTodoState(newTodo);
+		mutation.mutate(newTodo);
 	}
 
 	return (
-		<div>
-			<span className={styles.date}>
-				{new Date(todo.createdAt).toLocaleDateString()}{" "}
+		<div className={styles.todo}>
+			<span className={todoState.completed ? styles.completed : ""}>
+				{todo.createdAt
+					? new Date(todo.createdAt).toLocaleDateString()
+					: "N/A"}{" "}
 			</span>
 
-			<label className={styles.todo}>
+			<label className={styles.todo_label}>
 				<input
 					name="check"
 					type="checkbox"
@@ -37,11 +44,7 @@ export default function TodoComponent(props: { todo: TodoType }) {
 					onChange={handleToggle}
 					className={styles.checkbox}
 				/>
-				<span
-					style={{
-						textDecoration: todoState.completed ? "line-through" : "none",
-					}}
-				>
+				<span className={`${todoState.completed ? styles.completed : ""}`}>
 					{todo.name}
 				</span>
 			</label>
